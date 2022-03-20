@@ -47,6 +47,16 @@ struct constexpr_string {
         return CSTRHelper(tmp{});
     }
 
+    template <std::size_t N>
+    static constexpr auto remove_prefix() noexcept {
+        return substr<N, sizeof...(chars) - N>();
+    }
+
+    template <std::size_t N>
+    static constexpr auto remove_suffix() noexcept {
+        return substr<0, sizeof...(chars) - N>();
+    }
+
     static constexpr auto reverse() noexcept {
         struct tmp {
             static constexpr auto get() { return std::string_view{m_data}; }

@@ -3,10 +3,12 @@
 using namespace std::string_view_literals;
 
 int main() {
-    static_assert(CSTR("123").view() == "123"sv);
-    static_assert(CSTR("123").substr<1, 2>().view() == "23"sv);
-    static_assert(CSTR("hello, world!").reverse().view() == "!dlrow ,olleh"sv);
-    static_assert(join(CSTR("123"), CSTR("123"), CSTR("abc")).view() == "123123abc"sv);
+    static_assert(CSTR("hello, world").view() == "hello, world"sv);
+    static_assert(CSTR("hello, world").substr<2, 4>().view() == "llo,"sv);
+    static_assert(CSTR("hello, world").remove_prefix<5>().view() == ", world"sv);
+    static_assert(CSTR("hello, world").remove_suffix<5>().view() == "hello, "sv);
+    static_assert(CSTR("hello, world").reverse().view() == "dlrow ,olleh"sv);
+    static_assert(join(CSTR("hello"), CSTR(", "), CSTR("world")).view() == "hello, world"sv);
     static_assert(CSTR("hello, world").find(CSTR("llo")) == 2);
     static_assert(CSTR("hello, world").find("llo"sv) == 2);
     static_assert(CSTR("hello, world").find_first_not_of(CSTR("hello")) == 5);
